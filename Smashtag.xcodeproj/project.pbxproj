@@ -15,6 +15,7 @@
 		EA72B4181DE631A500810F14 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA72B4171DE631A500810F14 /* Twitter.framework */; };
 		EA72B4191DE631A500810F14 /* Twitter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA72B4171DE631A500810F14 /* Twitter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EA72B41B1DE64E1500810F14 /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA72B41A1DE64E1500810F14 /* TweetTableViewCell.swift */; };
+		EAE73BF41DE8DD8D00A41C29 /* MentionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE73BF31DE8DD8D00A41C29 /* MentionsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,6 +42,7 @@
 		EA72B4041DE4E59700810F14 /* TweetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewController.swift; sourceTree = "<group>"; };
 		EA72B4171DE631A500810F14 /* Twitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Twitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA72B41A1DE64E1500810F14 /* TweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
+		EAE73BF31DE8DD8D00A41C29 /* MentionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				EA72B3F51DE4E4DA00810F14 /* Main.storyboard */,
 				EA72B41A1DE64E1500810F14 /* TweetTableViewCell.swift */,
 				EA72B4041DE4E59700810F14 /* TweetTableViewController.swift */,
+				EAE73BF31DE8DD8D00A41C29 /* MentionsTableViewController.swift */,
 				EA72B4031DE4E51900810F14 /* Supporting files */,
 			);
 			path = Smashtag;
@@ -167,6 +170,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAE73BF41DE8DD8D00A41C29 /* MentionsTableViewController.swift in Sources */,
 				EA72B3F21DE4E4DA00810F14 /* AppDelegate.swift in Sources */,
 				EA72B4051DE4E59700810F14 /* TweetTableViewController.swift in Sources */,
 				EA72B41B1DE64E1500810F14 /* TweetTableViewCell.swift in Sources */,
