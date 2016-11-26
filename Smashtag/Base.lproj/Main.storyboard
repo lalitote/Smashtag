@@ -76,7 +76,7 @@
                                     <outlet property="tweetProfileImageView" destination="pMA-EX-3ln" id="VKo-2l-fWM"/>
                                     <outlet property="tweetScreenNameLabel" destination="Pcy-9l-1tD" id="6fQ-6f-A46"/>
                                     <outlet property="tweetTextLabel" destination="KHm-vM-Bnr" id="cx1-oU-Yow"/>
-                                    <segue destination="gvg-wA-UnX" kind="show" id="c4E-wm-InU"/>
+                                    <segue destination="gvg-wA-UnX" kind="show" identifier="ShowMentionsSegue" id="qSa-43-bHS"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -122,7 +122,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OWQ-7z-j4f" id="lr9-3H-5eK">
-                                    <frame key="frameInset" width="375" height="43"/>
+                                    <frame key="frameInset" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -132,10 +132,11 @@
                             <outlet property="delegate" destination="gvg-wA-UnX" id="naT-HI-a1B"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="PEg-hK-npE"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Est-sy-o7r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1801" y="179"/>
+            <point key="canvasLocation" x="1634" y="179"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="77S-xW-4zT">
