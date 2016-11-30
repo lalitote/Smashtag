@@ -76,7 +76,7 @@
                                     <outlet property="tweetProfileImageView" destination="pMA-EX-3ln" id="VKo-2l-fWM"/>
                                     <outlet property="tweetScreenNameLabel" destination="Pcy-9l-1tD" id="6fQ-6f-A46"/>
                                     <outlet property="tweetTextLabel" destination="KHm-vM-Bnr" id="cx1-oU-Yow"/>
-                                    <segue destination="gvg-wA-UnX" kind="show" identifier="ShowMentionsSegue" id="qSa-43-bHS"/>
+                                    <segue destination="gvg-wA-UnX" kind="show" identifier="ShowMentionsSegue" id="Hc6-Ze-QyM"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -107,23 +107,56 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HGS-z3-b64" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="916" y="179.46026986506749"/>
+            <point key="canvasLocation" x="1534" y="190"/>
         </scene>
         <!--Mentions Table View Controller-->
         <scene sceneID="jzi-3m-Keq">
             <objects>
                 <tableViewController id="gvg-wA-UnX" customClass="MentionsTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ni8-O1-l9l">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="164" sectionHeaderHeight="28" sectionFooterHeight="28" id="ni8-O1-l9l">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="OWQ-7z-j4f">
-                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Image" textLabel="3EN-Z8-NEa" imageView="zMQ-US-bHw" rowHeight="164" style="IBUITableViewCellStyleDefault" id="OWQ-7z-j4f">
+                                <rect key="frame" x="0.0" y="92" width="375" height="164"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OWQ-7z-j4f" id="lr9-3H-5eK">
-                                    <frame key="frameInset" width="375" height="44"/>
+                                    <frame key="frameInset" width="375" height="163"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" id="3EN-Z8-NEa">
+                                            <frame key="frameInset" minX="193" width="167" height="163"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <accessibility key="accessibilityConfiguration">
+                                                <accessibilityTraits key="traits" notEnabled="YES"/>
+                                            </accessibility>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Image" id="zMQ-US-bHw">
+                                            <frame key="frameInset" minX="15" width="163" height="163"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Mention" textLabel="Emu-Ef-l3B" rowHeight="60" style="IBUITableViewCellStyleDefault" id="KiX-8T-BZ9">
+                                <rect key="frame" x="0.0" y="256" width="375" height="60"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KiX-8T-BZ9" id="DXb-aU-mky">
+                                    <frame key="frameInset" width="375" height="59"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Emu-Ef-l3B">
+                                            <frame key="frameInset" minX="15" width="345" height="59"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -136,7 +169,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Est-sy-o7r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1634" y="179"/>
+            <point key="canvasLocation" x="2844" y="179.46026986506749"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="77S-xW-4zT">
@@ -157,4 +190,7 @@
             <point key="canvasLocation" x="-23.199999999999999" y="179.46026986506749"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Image" width="540" height="540"/>
+    </resources>
 </document>

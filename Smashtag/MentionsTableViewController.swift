@@ -7,34 +7,89 @@
 //
 
 import UIKit
+import Twitter
 
 class MentionsTableViewController: UITableViewController {
+    
+    var tweet: Tweet?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let tweet = tweet {
+            title = tweet.user.name
+        }
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
+        sections = [
+            Section(type: .Images, mentions: [.Image]),
+            Section(type: .Hashtags, mentions: [.Hashtag]),
+            Section(type: .Urls, mentions: [.Url]),
+            Section(type: .Users, mentions: [.UserMention])
+        ]
     }
+    
+    private enum SectionType {
+        case Images
+        case Hashtags
+        case Urls
+        case Users
+        
+        func header() -> String {
+            switch self {
+            case .Images: return "Images"
+            case .Hashtags: return "Hashtags"
+            case .Urls: return "Urls"
+            case .Users: return "Users"
+            }
+        }
+    }
+    
+    private enum Mention {
+        case Image
+        case Url
+        case Hashtag
+        case UserMention
+    }
+    
+    private struct Section {
+        var type: SectionType
+        var mentions: [Mention]
+    }
+    
+    private var sections = [Section]()
 
+
+    private struct Storyboard {
+        static let MentionsCellIdentifier = "Mention"
+        static let ImageCellIdentifier = "Image"
+    }
+    
     // MARK: - Table view data source
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section].type.header()
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return sections.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return sections[section].mentions.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.MentionsCellIdentifier , for: indexPath)
+        
+        
+        
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

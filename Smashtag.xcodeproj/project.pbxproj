@@ -57,6 +57,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA101CA11DEB7DC700D50A27 /* Custom TableView Cells */ = {
+			isa = PBXGroup;
+			children = (
+				EA72B41A1DE64E1500810F14 /* TweetTableViewCell.swift */,
+			);
+			name = "Custom TableView Cells";
+			sourceTree = "<group>";
+		};
 		EA72B3E51DE4E4D900810F14 = {
 			isa = PBXGroup;
 			children = (
@@ -78,9 +86,9 @@
 			isa = PBXGroup;
 			children = (
 				EA72B3F51DE4E4DA00810F14 /* Main.storyboard */,
-				EA72B41A1DE64E1500810F14 /* TweetTableViewCell.swift */,
 				EA72B4041DE4E59700810F14 /* TweetTableViewController.swift */,
 				EAE73BF31DE8DD8D00A41C29 /* MentionsTableViewController.swift */,
+				EA101CA11DEB7DC700D50A27 /* Custom TableView Cells */,
 				EA72B4031DE4E51900810F14 /* Supporting files */,
 			);
 			path = Smashtag;
