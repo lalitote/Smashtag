@@ -18,14 +18,15 @@ class MentionsTableViewController: UITableViewController {
         if let tweet = tweet {
             title = tweet.user.name
         }
+        
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         
         sections = [
-            Section(type: .Images, mentions: [.Image]),
-            Section(type: .Hashtags, mentions: [.Hashtag]),
-            Section(type: .Urls, mentions: [.Url]),
-            Section(type: .Users, mentions: [.UserMention])
+            Section(type: .Images, mentions: (tweet?.media)!),
+            Section(type: .Hashtags, mentions: (tweet?.hashtags)!),
+            Section(type: .Urls, mentions: (tweet?.urls)!),
+            Section(type: .Users, mentions: (tweet?.userMentions)!)
         ]
     }
     
@@ -45,25 +46,27 @@ class MentionsTableViewController: UITableViewController {
         }
     }
     
-    private enum Mention {
-        case Image
-        case Url
-        case Hashtag
-        case UserMention
-    }
+//    private enum Mention {
+//        case Image
+//        case Url(String)
+//        case Hashtag
+//        case UserMention
+//    }
     
     private struct Section {
         var type: SectionType
-        var mentions: [Mention]
+        var mentions: [NSObject]
     }
     
+    
     private var sections = [Section]()
-
+    
 
     private struct Storyboard {
         static let MentionsCellIdentifier = "Mention"
         static let ImageCellIdentifier = "Image"
     }
+    
     
     // MARK: - Table view data source
     
@@ -83,9 +86,19 @@ class MentionsTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.MentionsCellIdentifier , for: indexPath)
+        var cellIdentifier: String
         
+        // Switching through each section and row to set appropriate identifier
+        switch sections[indexPath.section].type {
+        case .Images:
+            cellIdentifier = Storyboard.ImageCellIdentifier
+        case .Hashtags, .Urls, .Users:
+            cellIdentifier = Storyboard.MentionsCellIdentifier
+        }
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        let mentionToLoad = sections[indexPath.section].mentions[indexPath.row]
+        cell.textLabel?.text = String(describing: mentionToLoad)
         
         return cell
     }
