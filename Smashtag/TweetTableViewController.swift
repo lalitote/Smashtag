@@ -165,9 +165,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
             
             // Get the cell that generated this segue
             if let selectedTweetCell = sender as? TweetTableViewCell {
-                let indexPath = tableView.indexPath(for: selectedTweetCell)
-                let selectedTweet = tweets[(indexPath?.section)!][(indexPath?.row)!]
-                mentionsDetailTableViewController.tweet = selectedTweet
+                mentionsDetailTableViewController.tweet = selectedTweetCell.tweet
             }
         }
     }

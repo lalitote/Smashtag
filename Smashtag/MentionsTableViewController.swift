@@ -11,96 +11,83 @@ import Twitter
 
 class MentionsTableViewController: UITableViewController {
     
-    var tweet: Tweet?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if let tweet = tweet {
-            title = tweet.user.name
-        }
-        
-        tableView.estimatedRowHeight = tableView.rowHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
-        
-        sections = [
-            Section(type: .Images, mentions: (tweet?.media)!),
-            Section(type: .Hashtags, mentions: (tweet?.hashtags)!),
-            Section(type: .Urls, mentions: (tweet?.urls)!),
-            Section(type: .Users, mentions: (tweet?.userMentions)!)
-        ]
-    }
-    
-    private enum SectionType {
-        case Images
-        case Hashtags
-        case Urls
-        case Users
-        
-        func header() -> String {
-            switch self {
-            case .Images: return "Images"
-            case .Hashtags: return "Hashtags"
-            case .Urls: return "Urls"
-            case .Users: return "Users"
+    var tweet: Tweet? {
+        didSet {
+            title = tweet?.user.name
+            
+            if let media = tweet?.media {
+                mentions.append(Section(title: "Images", data: media.map{ MentionItem.Image($0.url as NSURL, $0.aspectRatio) }))
+            }
+            if let url = tweet?.urls {
+                mentions.append(Section(title: "Urls", data: url.map { MentionItem.OtherMention($0.keyword) }))
+            }
+            if let hashtag = tweet?.hashtags {
+                mentions.append(Section(title: "Hashtags", data: hashtag.map { MentionItem.OtherMention($0.keyword) } ))
+            }
+            if let user = tweet?.userMentions {
+                mentions.append(Section(title: "Users", data: user.map { MentionItem.OtherMention($0.keyword)}))
             }
         }
     }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
+
+    }
     
-//    private enum Mention {
-//        case Image
-//        case Url(String)
-//        case Hashtag
-//        case UserMention
-//    }
+    private enum MentionItem {
+        case Image(NSURL, Double)
+        // Hashtags, Urls, User mentions
+        case OtherMention(String)
+    }
     
     private struct Section {
-        var type: SectionType
-        var mentions: [NSObject]
+        var title: String
+        var data: [MentionItem]
     }
     
     
-    private var sections = [Section]()
+    private var mentions = [Section]()
     
 
     private struct Storyboard {
-        static let MentionsCellIdentifier = "Mention"
-        static let ImageCellIdentifier = "Image"
+        static let MentionsCellIdentifier = "Mention Cell"
+        static let ImageCellIdentifier = "Image Cell"
     }
     
     
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section].type.header()
+        return mentions[section].title
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return sections.count
+        return mentions.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return sections[section].mentions.count
+        return mentions[section].data.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cellIdentifier: String
-        
-        // Switching through each section and row to set appropriate identifier
-        switch sections[indexPath.section].type {
-        case .Images:
-            cellIdentifier = Storyboard.ImageCellIdentifier
-        case .Hashtags, .Urls, .Users:
-            cellIdentifier = Storyboard.MentionsCellIdentifier
+        let mention = mentions[indexPath.section].data[indexPath.row]
+        switch mention {
+        case .OtherMention(let otherMention):
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.MentionsCellIdentifier, for: indexPath) as UITableViewCell
+            cell.textLabel?.text = otherMention
+            return cell
+        case .Image(let url, let aspectRatio):
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ImageCellIdentifier, for: indexPath) as! ImageTableViewCell
+            
+            return cell
         }
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        let mentionToLoad = sections[indexPath.section].mentions[indexPath.row]
-        cell.textLabel?.text = String(describing: mentionToLoad)
-        
-        return cell
     }
     
 
