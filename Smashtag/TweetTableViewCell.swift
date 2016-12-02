@@ -70,6 +70,13 @@ class TweetTableViewCell: UITableViewCell {
                 formatter.timeStyle = DateFormatter.Style.short
             }
             tweetCreatedLabel?.text = formatter.string(from: tweet.created)
+            
+            if tweet.hashtags.count + tweet.urls.count + tweet.userMentions.count + tweet.media.count > 0 {
+                accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+            } else {
+                accessoryType = UITableViewCellAccessoryType.none
+                
+            }
         }
     }
     
