@@ -16,7 +16,7 @@ class MentionsTableViewController: UITableViewController {
             title = tweet?.user.name
             
             if let media = tweet?.media {
-                mentions.append(Section(title: "Images", data: media.map{ MentionItem.Image($0.url as NSURL, $0.aspectRatio) }))
+                mentions.append(Section(title: "Images", data: media.map{ MentionItem.Image($0.url, $0.aspectRatio) }))
             }
             if let url = tweet?.urls {
                 mentions.append(Section(title: "Urls", data: url.map { MentionItem.OtherMention($0.keyword) }))
@@ -32,14 +32,10 @@ class MentionsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.estimatedRowHeight = tableView.rowHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
-
     }
     
     private enum MentionItem {
-        case Image(NSURL, Double)
+        case Image(URL, Double)
         // Hashtags, Urls, User mentions
         case OtherMention(String)
     }
@@ -75,6 +71,15 @@ class MentionsTableViewController: UITableViewController {
         return mentions[section].data.count
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let mention = mentions[indexPath.section].data[indexPath.row]
+        switch mention {
+        case .Image(_, let ratio):
+            return tableView.bounds.size.width / CGFloat(ratio)
+        default:
+            return UITableViewAutomaticDimension
+        }
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let mention = mentions[indexPath.section].data[indexPath.row]
@@ -83,9 +88,9 @@ class MentionsTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.MentionsCellIdentifier, for: indexPath) as UITableViewCell
             cell.textLabel?.text = otherMention
             return cell
-        case .Image(let url, let aspectRatio):
+        case .Image(let url, _):
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ImageCellIdentifier, for: indexPath) as! ImageTableViewCell
-            
+            cell.imageURL = url
             return cell
         }
     }
