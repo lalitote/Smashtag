@@ -16,16 +16,24 @@ class MentionsTableViewController: UITableViewController {
             title = tweet?.user.name
             
             if let media = tweet?.media {
-                mentions.append(Section(title: "Images", data: media.map{ MentionItem.Image($0.url, $0.aspectRatio) }))
+                if media.count > 0 {
+                    mentions.append(Section(title: "Images", data: media.map{ MentionItem.Image($0.url, $0.aspectRatio) }))
+                }
             }
             if let url = tweet?.urls {
-                mentions.append(Section(title: "Urls", data: url.map { MentionItem.OtherMention($0.keyword) }))
+                if url.count > 0 {
+                    mentions.append(Section(title: "Urls", data: url.map { MentionItem.OtherMention($0.keyword) }))
+                }
             }
             if let hashtag = tweet?.hashtags {
-                mentions.append(Section(title: "Hashtags", data: hashtag.map { MentionItem.OtherMention($0.keyword) } ))
+                if hashtag.count > 0 {
+                    mentions.append(Section(title: "Hashtags", data: hashtag.map { MentionItem.OtherMention($0.keyword) } ))
+                }
             }
             if let user = tweet?.userMentions {
-                mentions.append(Section(title: "Users", data: user.map { MentionItem.OtherMention($0.keyword)}))
+                if user.count > 0 {
+                    mentions.append(Section(title: "Users", data: user.map { MentionItem.OtherMention($0.keyword)}))
+                }
             }
         }
     }
@@ -45,10 +53,8 @@ class MentionsTableViewController: UITableViewController {
         var data: [MentionItem]
     }
     
-    
     private var mentions = [Section]()
     
-
     private struct Storyboard {
         static let MentionsCellIdentifier = "Mention Cell"
         static let ImageCellIdentifier = "Image Cell"
@@ -58,16 +64,14 @@ class MentionsTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return mentions[section].title
+            return mentions[section].title
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return mentions.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return mentions[section].data.count
     }
 
