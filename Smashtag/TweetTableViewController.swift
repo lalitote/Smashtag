@@ -92,6 +92,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     fileprivate struct Storyboard {
         static let TweetCellIdentifier = "Tweet"
+        static let ShowMentionSegue = "ShowMentionsSegue"
     }
     
     // MARK: Outlets
@@ -118,7 +119,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         super.viewDidLoad()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
-        searchText = "#stanford"
     }
 
     /*
@@ -160,7 +160,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     // MARK: - Navigation
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "ShowMentionsSegue" {
+        if identifier == Storyboard.ShowMentionSegue {
             if let tweetCell = sender as? TweetTableViewCell {
                 let tweetContent = (tweetCell.tweet?.hashtags.count)! + (tweetCell.tweet?.urls.count)! + (tweetCell.tweet?.userMentions.count)! + (tweetCell.tweet?.media.count)!
                 if tweetContent == 0 {
@@ -172,7 +172,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowMentionsSegue" {
+        if segue.identifier == Storyboard.ShowMentionSegue {
             let mentionsDetailTableViewController = segue.destination as! MentionsTableViewController
             
             // Get the cell that generated this segue

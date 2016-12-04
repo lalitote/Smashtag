@@ -58,6 +58,7 @@ class MentionsTableViewController: UITableViewController {
     private struct Storyboard {
         static let MentionsCellIdentifier = "Mention Cell"
         static let ImageCellIdentifier = "Image Cell"
+        static let MentionSearchIdentifier = "Mention Search Segue"
     }
     
     
@@ -135,14 +136,32 @@ class MentionsTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == Storyboard.MentionSearchIdentifier {
+            if let mentionCell = sender as? UITableViewCell {
+                if let url = mentionCell.textLabel?.text {
+                    if url.hasPrefix("http") {
+                        let urlToLoad = URL(string: url)!
+                        UIApplication.shared.open(urlToLoad, options: [:], completionHandler: nil)
+                        return false
+                    }
+                }
+            }
+        }
+        return true
     }
-    */
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Storyboard.MentionSearchIdentifier {
+            let mentionSearchTableViewController = segue.destination as! TweetTableViewController
+            if let selectedMention = sender as? UITableViewCell {
+                mentionSearchTableViewController.searchText = selectedMention.textLabel?.text
+            }
+        }
+    }
+ 
 
 }
