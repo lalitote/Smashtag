@@ -28,15 +28,14 @@ class ImageTableViewCell: UITableViewCell {
                     if url == self.imageURL {
                         if let imageData = contentsOfURL {
                             self.tweetImage.image = UIImage(data: imageData as Data)
+                            
                         } else {
-                            self.spinner?.stopAnimating()
+                            self.tweetImage?.image = nil
                         }
-                    } else {
-                        self.tweetImage?.image = nil
+                        self.spinner?.stopAnimating()
                     }
                     
                 }
-                
             }
         }
     }
