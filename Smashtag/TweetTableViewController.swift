@@ -162,11 +162,13 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "ShowMentionsSegue" {
             if let tweetCell = sender as? TweetTableViewCell {
-                if tweetCell.tweet?.hashtags.count + tweetCell.tweet?.urls.count + tweetCell.tweet?.userMentions.count + tweetCell.tweet?.media.count == 0 {
+                let tweetContent = (tweetCell.tweet?.hashtags.count)! + (tweetCell.tweet?.urls.count)! + (tweetCell.tweet?.userMentions.count)! + (tweetCell.tweet?.media.count)!
+                if tweetContent == 0 {
                     return false
                 }
             }
         }
+        return true
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
