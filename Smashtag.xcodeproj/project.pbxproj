@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EA0DCB821DF1835A00C11B94 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0DCB811DF1835A00C11B94 /* ImageTableViewCell.swift */; };
+		EA0DCB861DF4B8D600C11B94 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0DCB851DF4B8D600C11B94 /* ImageViewController.swift */; };
 		EA72B3F21DE4E4DA00810F14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA72B3F11DE4E4DA00810F14 /* AppDelegate.swift */; };
 		EA72B3F71DE4E4DA00810F14 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA72B3F51DE4E4DA00810F14 /* Main.storyboard */; };
 		EA72B3F91DE4E4DA00810F14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA72B3F81DE4E4DA00810F14 /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		EA0DCB811DF1835A00C11B94 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
+		EA0DCB851DF4B8D600C11B94 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		EA72B3EE1DE4E4DA00810F14 /* Smashtag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smashtag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA72B3F11DE4E4DA00810F14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA72B3F61DE4E4DA00810F14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				EA72B3F51DE4E4DA00810F14 /* Main.storyboard */,
+				EA0DCB851DF4B8D600C11B94 /* ImageViewController.swift */,
 				EA72B4041DE4E59700810F14 /* TweetTableViewController.swift */,
 				EAE73BF31DE8DD8D00A41C29 /* MentionsTableViewController.swift */,
 				EA101CA11DEB7DC700D50A27 /* Custom TableView Cells */,
@@ -185,6 +188,7 @@
 				EA72B3F21DE4E4DA00810F14 /* AppDelegate.swift in Sources */,
 				EA0DCB821DF1835A00C11B94 /* ImageTableViewCell.swift in Sources */,
 				EA72B4051DE4E59700810F14 /* TweetTableViewController.swift in Sources */,
+				EA0DCB861DF4B8D600C11B94 /* ImageViewController.swift in Sources */,
 				EA72B41B1DE64E1500810F14 /* TweetTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

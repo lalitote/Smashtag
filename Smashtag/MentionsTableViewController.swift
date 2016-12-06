@@ -59,6 +59,7 @@ class MentionsTableViewController: UITableViewController {
         static let MentionsCellIdentifier = "Mention Cell"
         static let ImageCellIdentifier = "Image Cell"
         static let MentionSearchIdentifier = "Mention Search Segue"
+        static let ShowImageIdentifier = "Show Image"
     }
     
     
@@ -151,6 +152,13 @@ class MentionsTableViewController: UITableViewController {
                 }
             }
         }
+        if identifier == Storyboard.ShowImageIdentifier {
+            if let mentionCell = sender as? ImageTableViewCell {
+                if mentionCell.tweetImage.image == nil {
+                    return false
+                }
+            }
+        }
         return true
     }
 
@@ -159,6 +167,14 @@ class MentionsTableViewController: UITableViewController {
             let mentionSearchTableViewController = segue.destination as! TweetTableViewController
             if let selectedMention = sender as? UITableViewCell {
                 mentionSearchTableViewController.searchText = selectedMention.textLabel?.text
+            }
+        }
+        if segue.identifier == Storyboard.ShowImageIdentifier {
+            let imageViewController = segue.destination as! ImageViewController
+            if let imageCell = sender as? ImageTableViewCell {
+                imageViewController.image = imageCell.tweetImage.image
+                
+                imageViewController.title = title
             }
         }
     }

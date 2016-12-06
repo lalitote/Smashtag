@@ -107,7 +107,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HGS-z3-b64" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1417" y="195"/>
+            <point key="canvasLocation" x="1542" y="725"/>
         </scene>
         <!--Mentions Table View Controller-->
         <scene sceneID="jzi-3m-Keq">
@@ -162,6 +162,7 @@
                                 <connections>
                                     <outlet property="spinner" destination="aHV-GX-roO" id="wch-7Y-EdQ"/>
                                     <outlet property="tweetImage" destination="HsS-l9-Owr" id="yhY-e7-5YX"/>
+                                    <segue destination="HiS-PD-Tis" kind="show" identifier="Show Image" id="zbb-JM-0RX"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -174,7 +175,27 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Est-sy-o7r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2345" y="-541"/>
+            <point key="canvasLocation" x="2510" y="161"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="uTo-YX-jaL">
+            <objects>
+                <viewController id="HiS-PD-Tis" customClass="ImageViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xEe-89-RLi"/>
+                        <viewControllerLayoutGuide type="bottom" id="zy0-FP-oOy"/>
+                    </layoutGuides>
+                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="me6-aW-lTM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </scrollView>
+                    <connections>
+                        <outlet property="scrollView" destination="me6-aW-lTM" id="GBj-ME-k42"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EH7-P9-flh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3317.5999999999999" y="160.56971514242881"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="77S-xW-4zT">
