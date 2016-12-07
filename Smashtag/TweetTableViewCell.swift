@@ -46,7 +46,7 @@ class TweetTableViewCell: UITableViewCell {
                 text += " 📷"
             }
             
-            var attributedText = NSMutableAttributedString(string: text)
+            let attributedText = NSMutableAttributedString(string: text)
             attributedText.changeMentionsColor(mentions: tweet.hashtags, color: hashtagColor)
             attributedText.changeMentionsColor(mentions: tweet.urls, color: urlColor)
             attributedText.changeMentionsColor(mentions: tweet.userMentions, color: userMentionColor)

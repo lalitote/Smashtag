@@ -15,7 +15,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         didSet {
             scrollView.contentSize = imageView.frame.size
             scrollView.delegate = self
-            scrollView.minimumZoomScale = 0.03
+            scrollView.minimumZoomScale = 0.3
             scrollView.maximumZoomScale = 3.0
         }
     }
@@ -26,7 +26,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     
     var imageView = UIImageView()
     
-    var image: UIImage? {
+    var imageFromTweet: UIImage? {
         get {
             return imageView.image
         }
@@ -34,13 +34,43 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             imageView.image = newValue
             imageView.sizeToFit()
             scrollView?.contentSize = imageView.frame.size
+//            scrollViewDidScroolOrZoom = false
+            autozoomToFit()
         }
     }
+    
+//    private var scrollViewDidScroolOrZoom = false
+//    
+    func autozoomToFit() {
+//        if scrollViewDidScroolOrZoom {
+//            return
+//        }
+        if let sv = scrollView {
+            if imageFromTweet != nil {
+                sv.zoomScale = max(sv.bounds.size.height / imageFromTweet!.size.height, sv.bounds.size.width / imageFromTweet!.size.width)
+//                scrollViewDidScroolOrZoom = false
+            }
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        autozoomToFit()
+    }
+
+//    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+//        scrollViewDidScroolOrZoom = true
+//    }
+//    
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        scrollViewDidScroolOrZoom = true
+//    }
+//    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.addSubview(imageView)
-        imageView.image = image
+        imageView.image = imageFromTweet
     }
 
 

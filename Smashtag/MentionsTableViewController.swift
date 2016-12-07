@@ -172,8 +172,7 @@ class MentionsTableViewController: UITableViewController {
         if segue.identifier == Storyboard.ShowImageIdentifier {
             let imageViewController = segue.destination as! ImageViewController
             if let imageCell = sender as? ImageTableViewCell {
-                imageViewController.image = imageCell.tweetImage.image
-                
+                imageViewController.imageFromTweet = imageCell.tweetImage.image
                 imageViewController.title = title
             }
         }
