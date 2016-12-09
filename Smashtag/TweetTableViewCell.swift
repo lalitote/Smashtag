@@ -39,7 +39,7 @@ class TweetTableViewCell: UITableViewCell {
         
         // load new information from our tweet (if any)
         if let tweet = self.tweet {
-            //            tweetTextLabel?.text = tweet.text
+
             var text = tweet.text
             
             for _ in tweet.media {
@@ -52,14 +52,19 @@ class TweetTableViewCell: UITableViewCell {
             attributedText.changeMentionsColor(mentions: tweet.userMentions, color: userMentionColor)
             tweetTextLabel?.attributedText = attributedText
             
-            
-            
-            
             tweetScreenNameLabel?.text = "\(tweet.user)" // tweet.user.description
             
             if let profileImageURL = tweet.user.profileImageURL {
-                if let imageData = NSData(contentsOf: profileImageURL) { // blocks main thread
-                    tweetProfileImageView?.image = UIImage(data: imageData as Data)
+                DispatchQueue.global(qos: .userInitiated).async {
+                    let contentOfUrl = NSData(contentsOf: profileImageURL)
+                    DispatchQueue.main.async {
+                        if profileImageURL == tweet.user.profileImageURL {
+                            if let imageData = contentOfUrl {
+                                self.tweetProfileImageView?.image = UIImage(data: imageData as Data)
+                            }
+                        }
+                        
+                    }
                 }
             }
             

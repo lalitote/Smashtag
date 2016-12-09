@@ -34,21 +34,14 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             imageView.image = newValue
             imageView.sizeToFit()
             scrollView?.contentSize = imageView.frame.size
-//            scrollViewDidScroolOrZoom = false
             autozoomToFit()
         }
     }
     
-//    private var scrollViewDidScroolOrZoom = false
-//    
     func autozoomToFit() {
-//        if scrollViewDidScroolOrZoom {
-//            return
-//        }
         if let sv = scrollView {
             if imageFromTweet != nil {
                 sv.zoomScale = max(sv.bounds.size.height / imageFromTweet!.size.height, sv.bounds.size.width / imageFromTweet!.size.width)
-//                scrollViewDidScroolOrZoom = false
             }
         }
     }
@@ -57,15 +50,6 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLayoutSubviews()
         autozoomToFit()
     }
-
-//    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-//        scrollViewDidScroolOrZoom = true
-//    }
-//    
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        scrollViewDidScroolOrZoom = true
-//    }
-//    
     
     override func viewDidLoad() {
         super.viewDidLoad()
