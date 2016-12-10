@@ -31,9 +31,12 @@ class MentionsTableViewController: UITableViewController {
                 }
             }
             if let user = tweet?.userMentions {
+                var usersInTweet = [MentionItem.OtherMention("@" + (tweet?.user.name)!)]
                 if user.count > 0 {
-                    mentions.append(Section(title: "Users", data: user.map { MentionItem.OtherMention($0.keyword)}))
+                    usersInTweet += user.map { MentionItem.OtherMention($0.keyword) }
+                    // mentions.append(Section(title: "Users", data: user.map { MentionItem.OtherMention($0.keyword)}))
                 }
+                mentions.append(Section(title: "Users", data: usersInTweet))
             }
         }
     }
