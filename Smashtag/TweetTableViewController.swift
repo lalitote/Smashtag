@@ -126,9 +126,25 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         super.viewDidLoad()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+        if let first = navigationController?.viewControllers.first as? TweetTableViewController {
+            if first == self {
+                navigationItem.rightBarButtonItem = nil
+            }
+        }
     }
 
     // MARK: - Navigation
+    
+    @IBAction func unwindToRoot(segue: UIStoryboardSegue) {}
+    
+    override func canPerformUnwindSegueAction(_ action: Selector, from fromViewController: UIViewController, withSender sender: Any) -> Bool {
+        if let first = navigationController?.viewControllers.first as? TweetTableViewController {
+            if first == self {
+                return true
+            }
+        }
+        return false
+    }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == Storyboard.ShowMentionSegue {

@@ -16,7 +16,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             scrollView.contentSize = imageView.frame.size
             scrollView.delegate = self
             scrollView.minimumZoomScale = 0.3
-            scrollView.maximumZoomScale = 3.0
+            scrollView.maximumZoomScale = 5.0
         }
     }
     
@@ -42,6 +42,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         if let sv = scrollView {
             if imageFromTweet != nil {
                 sv.zoomScale = max(sv.bounds.size.height / imageFromTweet!.size.height, sv.bounds.size.width / imageFromTweet!.size.width)
+                sv.contentOffset = CGPoint(x: (imageView.frame.size.width - sv.frame.size.width) / 2, y: (imageView.frame.size.height - sv.frame.size.height) / 2)
             }
         }
     }
