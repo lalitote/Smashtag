@@ -36,6 +36,13 @@ class HistoryTableViewController: UITableViewController {
         cell.textLabel?.text = RecentSearches().values[indexPath.row]
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            RecentSearches().removeAtIndex(index: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
  
     // MARK: - Navigation
     
