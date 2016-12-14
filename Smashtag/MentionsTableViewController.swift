@@ -63,6 +63,7 @@ class MentionsTableViewController: UITableViewController {
         static let ImageCellIdentifier = "Image Cell"
         static let MentionSearchIdentifier = "Mention Search Segue"
         static let ShowImageIdentifier = "Show Image"
+        static let ShowWebsiteIdentifier = "Show Website"
     }
     
     
@@ -111,8 +112,9 @@ class MentionsTableViewController: UITableViewController {
             if let mentionCell = sender as? UITableViewCell {
                 if let url = mentionCell.textLabel?.text {
                     if url.hasPrefix("http") {
-                        let urlToLoad = URL(string: url)!
-                        UIApplication.shared.open(urlToLoad, options: [:], completionHandler: nil)
+//                        let urlToLoad = URL(string: url)!
+//                        UIApplication.shared.open(urlToLoad, options: [:], completionHandler: nil)
+                        performSegue(withIdentifier: Storyboard.ShowWebsiteIdentifier, sender: sender)
                         return false
                     }
                 }
@@ -135,14 +137,22 @@ class MentionsTableViewController: UITableViewController {
                 mentionSearchTableViewController.searchText = selectedMention.textLabel?.text
             }
         }
-        if segue.identifier == Storyboard.ShowImageIdentifier {
+        else if segue.identifier == Storyboard.ShowImageIdentifier {
             let imageViewController = segue.destination as! ImageViewController
             if let imageCell = sender as? ImageTableViewCell {
                 imageViewController.imageFromTweet = imageCell.tweetImage.image
                 imageViewController.title = title
             }
         }
+        else if segue.identifier == Storyboard.ShowWebsiteIdentifier {
+            let websiteViewController = segue.destination as? WebsiteViewController
+            if let selectedMention = sender as? UITableViewCell {
+                if let urlFromTweet = selectedMention.textLabel?.text {
+                    websiteViewController?.url = URL(string: urlFromTweet)
+                }
+            }
+        }
     }
- 
+    
 
 }
