@@ -178,6 +178,11 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
             if let selectedTweetCell = sender as? TweetTableViewCell {
                 mentionsDetailTableViewController.tweet = selectedTweetCell.tweet
             }
+        } else if segue.identifier == Storyboard.ShowImagesIdentifier {
+            if let icvc = segue.destination as? ImagesCollectionViewController {
+                icvc.tweets = tweets
+                icvc.title = "Images: \(searchText!)"
+            }
         }
     }
     

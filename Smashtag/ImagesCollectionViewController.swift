@@ -7,10 +7,34 @@
 //
 
 import UIKit
+import Twitter
 
 private let reuseIdentifier = "Cell"
 
 class ImagesCollectionViewController: UICollectionViewController {
+    
+    var images = [TweetMedia]()
+    
+    struct TweetMedia {
+        var tweet: Tweet
+        var media: MediaItem
+        
+        var description: String {
+            return "\(tweet): \(media)"
+        }
+    }
+    
+    var tweets = [Array<Tweet>]() {
+        didSet {
+            images = tweets.reduce([], +).map { tweet in tweet.media.map { TweetMedia(tweet: tweet, media: $0) } }.reduce([], +)
+        }
+    }
+    
+    private struct Storyboard {
+        static let CellIdentifier = "Image From Search"
+    }
+    
+    // MARK: Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,33 +46,28 @@ class ImagesCollectionViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//
+//    }
+ 
 
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
+        return images.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
-        // Configure the cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier, for: indexPath)
+        cell.backgroundColor = UIColor.darkGray
     
         return cell
     }
