@@ -100,6 +100,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     fileprivate struct Storyboard {
         static let TweetCellIdentifier = "Tweet"
         static let ShowMentionSegue = "ShowMentionsSegue"
+        static let ShowImagesIdentifier = "Show Images"
     }
     
     // MARK: Outlets
@@ -131,8 +132,19 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
                 navigationItem.rightBarButtonItem = nil
             }
         }
+        let imagesButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(showImages(sender:)))
+        if let existingButton = navigationItem.rightBarButtonItem {
+            navigationItem.rightBarButtonItems = [existingButton, imagesButton]
+        } else {
+            navigationItem.rightBarButtonItem = imagesButton
+        }
     }
 
+    func showImages(sender: UIBarButtonItem) {
+        performSegue(withIdentifier: Storyboard.ShowImagesIdentifier, sender: sender)
+    }
+    
+    
     // MARK: - Navigation
     
     @IBAction func unwindToRoot(segue: UIStoryboardSegue) {}
