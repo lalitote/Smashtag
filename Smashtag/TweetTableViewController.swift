@@ -173,7 +173,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Storyboard.ShowMentionSegue {
             let mentionsDetailTableViewController = segue.destination as! MentionsTableViewController
-            
             // Get the cell that generated this segue
             if let selectedTweetCell = sender as? TweetTableViewCell {
                 mentionsDetailTableViewController.tweet = selectedTweetCell.tweet
@@ -181,7 +180,9 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         } else if segue.identifier == Storyboard.ShowImagesIdentifier {
             if let icvc = segue.destination as? ImagesCollectionViewController {
                 icvc.tweets = tweets
-                icvc.title = "Images: \(searchText!)"
+                if searchText != nil {
+                    icvc.title = "Images: \(searchText!)"
+                }
             }
         }
     }
