@@ -32,6 +32,7 @@ class ImagesCollectionViewController: UICollectionViewController {
     
     private struct Storyboard {
         static let CellIdentifier = "Image From Search"
+        static let CellArea: CGFloat = 4000
     }
     
     // MARK: Lifecycle
@@ -62,8 +63,7 @@ class ImagesCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
-        //        return images.count
+        return images.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -74,7 +74,23 @@ class ImagesCollectionViewController: UICollectionViewController {
     }
 
     // MARK: UICollectionViewDelegate
-
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let ratio = CGFloat(images[indexPath.row].media.aspectRatio)
+        let width = min(sqrt(ratio * Storyboard.CellArea), collectionView.bounds.size.width)
+        let height = width / ratio
+        return CGSize(width: width, height: height)
+    }
+    
+    
+//
+//    func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAtIndexPath: IndexPath) -> CGSize {
+//        let ratio = CGFloat(images[IndexPath.row].media.aspectRatio)
+//        let width = min(sqrt(ratio * Storyboard.CellArea), collectionView.bounds.size.width)
+//        let height = width / ratio
+//        return CGSize(width: width, height: height)
+//        
+//    }
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
