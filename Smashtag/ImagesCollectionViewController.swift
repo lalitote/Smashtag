@@ -68,7 +68,7 @@ class ImagesCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier, for: indexPath) as! ImageCollectionViewCell
-        cell.backgroundColor = UIColor.darkGray
+        cell.imageURL = images[indexPath.row].media.url
     
         return cell
     }
