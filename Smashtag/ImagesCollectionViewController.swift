@@ -30,6 +30,8 @@ class ImagesCollectionViewController: UICollectionViewController {
         }
     }
     
+    var cache = NSCache<NSURL, NSData>()
+    
     private struct Storyboard {
         static let CellIdentifier = "Image From Search"
         static let CellArea: CGFloat = 4000
@@ -68,7 +70,9 @@ class ImagesCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier, for: indexPath) as! ImageCollectionViewCell
-        cell.imageURL = images[indexPath.row].media.url
+        
+        cell.cache = cache
+        cell.imageURL = images[indexPath.row].media.url as NSURL
     
         return cell
     }
@@ -81,16 +85,7 @@ class ImagesCollectionViewController: UICollectionViewController {
         let height = width / ratio
         return CGSize(width: width, height: height)
     }
-    
-    
-//
-//    func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAtIndexPath: IndexPath) -> CGSize {
-//        let ratio = CGFloat(images[IndexPath.row].media.aspectRatio)
-//        let width = min(sqrt(ratio * Storyboard.CellArea), collectionView.bounds.size.width)
-//        let height = width / ratio
-//        return CGSize(width: width, height: height)
-//        
-//    }
+
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {

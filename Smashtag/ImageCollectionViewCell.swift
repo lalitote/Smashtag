@@ -13,8 +13,9 @@ class ImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
+    var cache: NSCache<NSURL, NSData>?
     
-    var imageURL: URL? {
+    var imageURL: NSURL? {
         didSet {
             backgroundColor = UIColor.darkGray
             image = nil
@@ -34,13 +35,19 @@ class ImageCollectionViewCell: UICollectionViewCell {
     func fetchImage() {
         if let url = imageURL {
             spinner?.startAnimating()
+            
+            var imageData = cache?.object(forKey: imageURL!)
+            if imageData != nil {
+                self.image = UIImage(data: imageData! as Data)
+                return
+            }
             DispatchQueue.global(qos: .userInitiated).async {
-                let contentsOfURL = NSData(contentsOf: url)
+                imageData = NSData(contentsOf: url as URL)
                 DispatchQueue.main.async {
                     if url == self.imageURL {
-                        if contentsOfURL != nil {
-                            self.image = UIImage(data: contentsOfURL as! Data)
-                            
+                        if imageData != nil {
+                            self.image = UIImage(data: imageData as! Data)
+                            self.cache?.setObject(imageData!, forKey: self.imageURL!, cost: imageData!.length / 1024)
                         } else {
                             self.image = nil
                         }
