@@ -35,6 +35,7 @@ class ImagesCollectionViewController: UICollectionViewController {
     private struct Storyboard {
         static let CellIdentifier = "Image From Search"
         static let CellArea: CGFloat = 4000
+        static let ShowTweetsSegue = "Tweet From Image"
     }
     
     // MARK: Lifecycle
@@ -52,9 +53,15 @@ class ImagesCollectionViewController: UICollectionViewController {
     
     // MARK: - Navigation
 
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Storyboard.ShowTweetsSegue {
+            if let ttvc = segue.destination as? TweetTableViewController {
+                if let cell = sender as? ImageCollectionViewCell {
+                ttvc.tweets = [[images[(collectionView?.indexPath(for: cell)!.row)!].tweet]]
+                }
+            }
+        }
+    }
  
 
     // MARK: UICollectionViewDataSource
