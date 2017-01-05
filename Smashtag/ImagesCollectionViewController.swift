@@ -11,7 +11,7 @@ import Twitter
 
 private let reuseIdentifier = "Cell"
 
-class ImagesCollectionViewController: UICollectionViewController {
+class ImagesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var images = [TweetMedia]()
     
@@ -32,16 +32,26 @@ class ImagesCollectionViewController: UICollectionViewController {
     
     var cache = NSCache<NSURL, NSData>()
     
+    var scale: CGFloat = 1.0 { didSet {collectionView?.collectionViewLayout.invalidateLayout()} }
+    
     private struct Storyboard {
         static let CellIdentifier = "Image From Search"
         static let CellArea: CGFloat = 4000
         static let ShowTweetsSegue = "Tweet From Image"
     }
     
+    
+    func zoom(_ recognizer: UIPinchGestureRecognizer) {
+        if recognizer.state == .changed {
+            scale *= recognizer.scale
+            recognizer.scale = 1.0
+        }
+    }
     // MARK: Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView?.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(ImagesCollectionViewController.zoom(_:))))
 
     }
 
@@ -86,9 +96,11 @@ class ImagesCollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDelegate
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let ratio = CGFloat(images[indexPath.row].media.aspectRatio)
-        let width = min(sqrt(ratio * Storyboard.CellArea), collectionView.bounds.size.width)
+    
+    
+    func collectionView(_: UICollectionView, layout: UICollectionViewLayout, sizeForItemAt: IndexPath) -> CGSize {
+        let ratio = CGFloat(images[sizeForItemAt.row].media.aspectRatio)
+        let width = min(sqrt(ratio * Storyboard.CellArea) * scale, (collectionView?.bounds.size.width)!)
         let height = width / ratio
         return CGSize(width: width, height: height)
     }
