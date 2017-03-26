@@ -25,13 +25,13 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
             lastTwitterRequest = nil
             searchForTweets()
             title = searchText
-            RecentSearches().add(search: searchText!)
+            RecentSearches().add(searchText!)
         }
     }
     
     // MARK: Fetching Tweets
     
-    private var twitterRequest: Twitter.Request? {
+    fileprivate var twitterRequest: Twitter.Request? {
         if lastTwitterRequest == nil {
             if var query = searchText, !query.isEmpty {
                 if query.hasPrefix("@") {
@@ -43,9 +43,9 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         return lastTwitterRequest?.requestForNewer
     }
     
-    private var lastTwitterRequest: Twitter.Request?
+    fileprivate var lastTwitterRequest: Twitter.Request?
     
-    private func searchForTweets() {
+    fileprivate func searchForTweets() {
         if let request = twitterRequest {
             lastTwitterRequest = request
             request.fetchTweets{ [weak weakSelf = self] newTweets in
@@ -65,7 +65,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if searchText != nil {
-            RecentSearches().add(search: searchText!)
+            RecentSearches().add(searchText!)
         }
         searchForTweets()
     }
@@ -132,7 +132,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
                 navigationItem.rightBarButtonItem = nil
             }
         }
-        let imagesButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(showImages(sender:)))
+        let imagesButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(showImages(_:)))
         if let existingButton = navigationItem.rightBarButtonItem {
             navigationItem.rightBarButtonItems = [existingButton, imagesButton]
         } else {
@@ -140,14 +140,14 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
 
-    func showImages(sender: UIBarButtonItem) {
+    func showImages(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: Storyboard.ShowImagesIdentifier, sender: sender)
     }
     
     
     // MARK: - Navigation
     
-    @IBAction func unwindToRoot(segue: UIStoryboardSegue) {}
+    @IBAction func unwindToRoot(_ segue: UIStoryboardSegue) {}
     
     override func canPerformUnwindSegueAction(_ action: Selector, from fromViewController: UIViewController, withSender sender: Any) -> Bool {
         if let first = navigationController?.viewControllers.first as? TweetTableViewController {

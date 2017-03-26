@@ -15,7 +15,7 @@ class HistoryTableViewController: UITableViewController {
         tableView.reloadData()
         title = "Recent Searches"
     }
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let CellReuseIdentifier = "History Cell"
         static let HistorySegueIdentifier = "History Segue"
     }
@@ -39,14 +39,14 @@ class HistoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            RecentSearches().removeAtIndex(index: indexPath.row)
+            RecentSearches().removeAtIndex(indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
  
     // MARK: - Navigation
     
-    @IBAction func unwindToRoot(segue: UIStoryboardSegue) {}
+    @IBAction func unwindToRoot(_ segue: UIStoryboardSegue) {}
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Storyboard.HistorySegueIdentifier {

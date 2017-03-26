@@ -25,7 +25,7 @@ class WebsiteViewController: UIViewController, UIWebViewDelegate {
         }
     }
     
-    private func loadUrl() {
+    fileprivate func loadUrl() {
         if url != nil {
             websiteVIew.loadRequest(URLRequest(url: url!))
         }

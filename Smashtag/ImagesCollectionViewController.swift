@@ -34,7 +34,7 @@ class ImagesCollectionViewController: UICollectionViewController, UICollectionVi
     
     var scale: CGFloat = 1.0 { didSet {collectionView?.collectionViewLayout.invalidateLayout()} }
     
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let CellIdentifier = "Image From Search"
         static let CellArea: CGFloat = 4000
         static let ShowTweetsSegue = "Tweet From Image"
@@ -89,7 +89,7 @@ class ImagesCollectionViewController: UICollectionViewController, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier, for: indexPath) as! ImageCollectionViewCell
         
         cell.cache = cache
-        cell.imageURL = images[indexPath.row].media.url as NSURL
+        cell.imageURL = (images[indexPath.row].media.url as NSURL) as URL
     
         return cell
     }

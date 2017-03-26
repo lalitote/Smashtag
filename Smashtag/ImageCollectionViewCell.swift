@@ -15,7 +15,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     var cache: NSCache<NSURL, NSData>?
     
-    var imageURL: NSURL? {
+    var imageURL: URL? {
         didSet {
             backgroundColor = UIColor.darkGray
             image = nil
@@ -23,7 +23,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private var image: UIImage? {
+    fileprivate var image: UIImage? {
         get {
             return imageView.image
         } set {
@@ -36,7 +36,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         if let url = imageURL {
             spinner?.startAnimating()
             
-            var imageData = cache?.object(forKey: imageURL!)
+            var imageData = cache?.object(forKey: imageURL! as NSURL)
             if imageData != nil {
                 self.image = UIImage(data: imageData! as Data)
                 return
@@ -47,7 +47,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
                     if url == self.imageURL {
                         if imageData != nil {
                             self.image = UIImage(data: imageData as! Data)
-                            self.cache?.setObject(imageData!, forKey: self.imageURL!, cost: imageData!.length / 1024)
+                            self.cache?.setObject(imageData!, forKey: self.imageURL! as NSURL, cost: imageData!.length / 1024)
                         } else {
                             self.image = nil
                         }

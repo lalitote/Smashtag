@@ -17,23 +17,23 @@ class MentionsTableViewController: UITableViewController {
             
             if let media = tweet?.media {
                 if media.count > 0 {
-                    mentions.append(Section(title: "Images", data: media.map{ MentionItem.Image($0.url, $0.aspectRatio) }))
+                    mentions.append(Section(title: "Images", data: media.map{ MentionItem.image($0.url, $0.aspectRatio) }))
                 }
             }
             if let url = tweet?.urls {
                 if url.count > 0 {
-                    mentions.append(Section(title: "Urls", data: url.map { MentionItem.OtherMention($0.keyword) }))
+                    mentions.append(Section(title: "Urls", data: url.map { MentionItem.otherMention($0.keyword) }))
                 }
             }
             if let hashtag = tweet?.hashtags {
                 if hashtag.count > 0 {
-                    mentions.append(Section(title: "Hashtags", data: hashtag.map { MentionItem.OtherMention($0.keyword) } ))
+                    mentions.append(Section(title: "Hashtags", data: hashtag.map { MentionItem.otherMention($0.keyword) } ))
                 }
             }
             if let user = tweet?.userMentions {
-                var usersInTweet = [MentionItem.OtherMention("@" + (tweet?.user.name)!)]
+                var usersInTweet = [MentionItem.otherMention("@" + (tweet?.user.name)!)]
                 if user.count > 0 {
-                    usersInTweet += user.map { MentionItem.OtherMention($0.keyword) }
+                    usersInTweet += user.map { MentionItem.otherMention($0.keyword) }
                     // mentions.append(Section(title: "Users", data: user.map { MentionItem.OtherMention($0.keyword)}))
                 }
                 mentions.append(Section(title: "Users", data: usersInTweet))
@@ -45,20 +45,20 @@ class MentionsTableViewController: UITableViewController {
         super.viewDidLoad()
     }
     
-    private enum MentionItem {
-        case Image(URL, Double)
+    fileprivate enum MentionItem {
+        case image(URL, Double)
         // Hashtags, Urls, User mentions
-        case OtherMention(String)
+        case otherMention(String)
     }
     
-    private struct Section {
+    fileprivate struct Section {
         var title: String
         var data: [MentionItem]
     }
     
-    private var mentions = [Section]()
+    fileprivate var mentions = [Section]()
     
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let MentionsCellIdentifier = "Mention Cell"
         static let ImageCellIdentifier = "Image Cell"
         static let MentionSearchIdentifier = "Mention Search Segue"
@@ -84,7 +84,7 @@ class MentionsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let mention = mentions[indexPath.section].data[indexPath.row]
         switch mention {
-        case .Image(_, let ratio):
+        case .image(_, let ratio):
             return tableView.bounds.size.width / CGFloat(ratio)
         default:
             return UITableViewAutomaticDimension
@@ -94,11 +94,11 @@ class MentionsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let mention = mentions[indexPath.section].data[indexPath.row]
         switch mention {
-        case .OtherMention(let otherMention):
+        case .otherMention(let otherMention):
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.MentionsCellIdentifier, for: indexPath) as UITableViewCell
             cell.textLabel?.text = otherMention
             return cell
-        case .Image(let url, _):
+        case .image(let url, _):
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ImageCellIdentifier, for: indexPath) as! ImageTableViewCell
             cell.imageURL = url
             return cell

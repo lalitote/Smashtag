@@ -10,12 +10,12 @@ import Foundation
 
 class RecentSearches
 {
-    private struct Const {
+    fileprivate struct Const {
         static let ValuesKey = "RecentSearches.Values"
         static let NumberOfSearches = 100
     }
     
-    private let defaults = UserDefaults.standard
+    fileprivate let defaults = UserDefaults.standard
     
     var values: [String] {
         get {
@@ -26,7 +26,7 @@ class RecentSearches
         }
     }
     
-    func add(search: String) {
+    func add(_ search: String) {
         var currentSearches = values
         if let index = currentSearches.index(of: search) {
             currentSearches.remove(at: index)
@@ -38,7 +38,7 @@ class RecentSearches
         values = currentSearches
     }
     
-    func removeAtIndex(index: Int) {
+    func removeAtIndex(_ index: Int) {
         var currentSearches = values
         currentSearches.remove(at: index)
         values = currentSearches

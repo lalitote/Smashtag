@@ -27,7 +27,7 @@ class TweetTableViewCell: UITableViewCell {
     var userMentionColor = UIColor(red: 200/255, green: 12/255, blue: 47/255, alpha: 1.0)
     var mediaColor = UIColor(red: 172/255, green: 187/255, blue: 42/255, alpha: 1.0)
     
-    private func updateUI() {
+    fileprivate func updateUI() {
         
         // reset any existing tweet information
         tweetTextLabel?.attributedText = nil
@@ -47,9 +47,9 @@ class TweetTableViewCell: UITableViewCell {
             }
             
             let attributedText = NSMutableAttributedString(string: text)
-            attributedText.changeMentionsColor(mentions: tweet.hashtags, color: hashtagColor)
-            attributedText.changeMentionsColor(mentions: tweet.urls, color: urlColor)
-            attributedText.changeMentionsColor(mentions: tweet.userMentions, color: userMentionColor)
+            attributedText.changeMentionsColor(tweet.hashtags, color: hashtagColor)
+            attributedText.changeMentionsColor(tweet.urls, color: urlColor)
+            attributedText.changeMentionsColor(tweet.userMentions, color: userMentionColor)
             tweetTextLabel?.attributedText = attributedText
             
             tweetScreenNameLabel?.text = "\(tweet.user)" // tweet.user.description
@@ -69,7 +69,7 @@ class TweetTableViewCell: UITableViewCell {
             }
             
             let formatter = DateFormatter()
-            if NSDate().timeIntervalSince(tweet.created) > 24*60*60 {
+            if Date().timeIntervalSince(tweet.created) > 24*60*60 {
                 formatter.dateStyle = DateFormatter.Style.short
             } else {
                 formatter.timeStyle = DateFormatter.Style.short
@@ -90,7 +90,7 @@ class TweetTableViewCell: UITableViewCell {
 // MARK: Extensions
 
 private extension NSMutableAttributedString {
-    func changeMentionsColor(mentions: [Mention], color: UIColor) {
+    func changeMentionsColor(_ mentions: [Mention], color: UIColor) {
         for mention in mentions {
             addAttribute(NSForegroundColorAttributeName, value: color, range: mention.nsrange)
         }
